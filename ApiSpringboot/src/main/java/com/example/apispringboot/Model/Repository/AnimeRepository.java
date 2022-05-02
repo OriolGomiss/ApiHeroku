@@ -6,9 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface AnimeRepository extends JpaRepository<Anime,String> {
-    //List<Anime> findByAnimeName(String AnimeName);
-    //long countBySeasons(int Seasson);
-    //List<Anime> findBySeasonsIsLessThan(int seasson);
+    List<Anime> findByAnimeName(String AnimeName);
+    long countBySeasons(int Seasson);
+    List<Anime> findBySeasonsIsLessThan(int seasson);
+    List<Anime> findBySeasons(int seasson);
 
 
 }

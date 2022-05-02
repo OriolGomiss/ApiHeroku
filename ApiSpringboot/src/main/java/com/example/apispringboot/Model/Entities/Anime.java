@@ -11,7 +11,7 @@ import javax.persistence.Id;
 public class Anime {
     @Id
     //@GeneratedValue
-    private int Animeid;
-    private String AnimeName;
-    private int Seasons;
+    private String animeid;
+    private String animeName;
+    private int seasons;
 }

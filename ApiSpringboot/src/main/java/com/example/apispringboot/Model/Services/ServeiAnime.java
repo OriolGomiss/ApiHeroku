@@ -17,12 +17,15 @@ public class ServeiAnime {
     public List<Anime>llistarAnimes(){
         return animeRepository.findAll();
     }
-    /*public List<Anime> llistarAnimeName(String name){
+    public List<Anime> llistarAnimeName(String name){
         return animeRepository.findByAnimeName(name);
-    }*/
-    /*public List<Anime> llistarPerSeasonsMenorA(Integer Season){
+    }
+    public List<Anime> llistarPerSeasonsMenorA(Integer Season){
         return animeRepository.findBySeasonsIsLessThan(Season);
-    }*/
+    }
+    public List<Anime> llistarAnimePerSeason(Integer Season){
+        return animeRepository.findBySeasons(Season);
+    }
 
     public Anime consultarAnime(String Id){
         return  animeRepository.findById(Id).orElse(null);
@@ -41,13 +44,13 @@ public class ServeiAnime {
         return anime1;
     }*/
 
-    public Anime eliminarAnime(String id){
+    public List<Anime> eliminarAnime(String id){
         Anime anime=animeRepository.findById(id).orElse(null);
         if (anime!=null){
             animeRepository.deleteById(id);
 
         }
-        return anime;
+        return animeRepository.findAll();
     }
 
 

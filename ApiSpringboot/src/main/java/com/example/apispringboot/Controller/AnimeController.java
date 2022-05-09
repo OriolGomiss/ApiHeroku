@@ -3,8 +3,11 @@ package com.example.apispringboot.Controller;
 import com.example.apispringboot.Model.Entities.Anime;
 import com.example.apispringboot.Model.Services.ServeiAnime;
 import lombok.RequiredArgsConstructor;
+import net.bytebuddy.pool.TypePool;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -13,35 +16,72 @@ public class AnimeController {
     private final ServeiAnime serveiAnime;
 
     @GetMapping("/animes")
-    public List<Anime> llistarAnimes(){
-        return serveiAnime.llistarAnimes();
+    public ResponseEntity<?> llistarAnimes(){
+        List<Anime> animeList=serveiAnime.llistarAnimes();
+        if(animeList.isEmpty()==true){
+            return ResponseEntity.notFound().build();
+        }else{
+            return ResponseEntity.ok(animeList);
+        }
+
     }
 
     @GetMapping("/animes/{id}")
-    public  Anime consultarAnimePerId(@PathVariable String id){
-        return  serveiAnime.consultarAnime(id);
+    public  ResponseEntity<?> consultarAnimePerId(@PathVariable String id){
+        Anime animeid=serveiAnime.consultarAnime(id);
+        if(animeid==null){
+            return ResponseEntity.notFound().build();
+        }else{
+            return ResponseEntity.ok(animeid);
+        }
+
     }
 
     @PostMapping("/animes")
-    public  Anime afegirAnime(@RequestBody Anime anime){
-        return  serveiAnime.afegirAnime(anime);
+    public  ResponseEntity<?> afegirAnime(@RequestBody Anime anime){
+        Anime animeid=serveiAnime.afegirAnime(anime);
+        if(animeid==null){
+            return ResponseEntity.notFound().build();
+        }else{
+            return ResponseEntity.ok(animeid);
+        }
     }
 
     @GetMapping("/animes/name/{animename}")
-    public List<Anime> consultarAnimePerName(@PathVariable String animename){
-        return serveiAnime.llistarAnimeName(animename);
+    public ResponseEntity<?> consultarAnimePerName(@PathVariable String animename){
+        List<Anime> animeList=serveiAnime.llistarAnimeName(animename);
+        if(animeList.isEmpty()==true){
+            return ResponseEntity.notFound().build();
+        }else{
+            return ResponseEntity.ok(animeList);
+        }
     }
     @GetMapping("/animes/seassonLT/{seasson}")
-    public List<Anime> consultarAnimePerSeasonMenorA(@PathVariable int seasson){
-        return serveiAnime.llistarPerSeasonsMenorA(seasson);
+    public ResponseEntity<?> consultarAnimePerSeasonMenorA(@PathVariable int seasson){
+        List<Anime> animeList=serveiAnime.llistarPerSeasonsMenorA(seasson);
+        if(animeList.isEmpty()==true){
+            return ResponseEntity.notFound().build();
+        }else{
+            return ResponseEntity.ok(animeList);
+        }
     }
     @GetMapping("/animes/season/{seasson}")
-    public List<Anime> consultarAnimePerSeason(@PathVariable int seasson){
-        return serveiAnime.llistarAnimePerSeason(seasson);
+    public ResponseEntity<?> consultarAnimePerSeason(@PathVariable int seasson){
+        List<Anime> animeList=serveiAnime.llistarAnimePerSeason(seasson);
+        if(animeList.isEmpty()==true){
+            return ResponseEntity.notFound().build();
+        }else{
+            return ResponseEntity.ok(animeList);
+        }
     }
     @DeleteMapping("/animes/delete/{id}")
-    public List<Anime> consultarAnimePerSeason(@PathVariable String id){
-        return serveiAnime.eliminarAnime(id);
+    public ResponseEntity<?> consultarAnimePerSeason(@PathVariable String id){
+        List<Anime> animeid=serveiAnime.eliminarAnime(id);
+        if(animeid.isEmpty()==true){
+            return ResponseEntity.notFound().build();
+        }else{
+            return ResponseEntity.ok(animeid);
+        }
     }
 
 }
